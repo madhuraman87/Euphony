@@ -1,0 +1,38 @@
+/*
+ * Table styles
+ */
+table.pretty {
+	width: 100%;
+	clear: both;
+}
+
+table.pretty td,
+table.pretty th {
+	padding: 5px;
+	border: 1px solid #fff;
+	text-align: center;
+}
+
+/* Header cells */
+table.pretty thead tr {
+	text-align: center;
+	background: #0088cc;
+	color:#fff
+}
+
+/* Body cells */
+
+	
+table.pretty tbody td {
+	text-align: center;
+	background: #fff;
+}
+		
+table.pretty tbody tr.odd td { 
+	background: #F8F8F8 ;
+}
+
+table.pretty tbody tr.selected td{
+    background-color: #BCC6CC;
+}
+
