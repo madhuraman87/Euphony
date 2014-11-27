@@ -17,6 +17,7 @@ public class AlbumDAO {
 	private static final String INSERT_ALBUM = "INSERT INTO " + tableName
 			+ " (albumid,artistid,genreid) values (?,?,?)";
 	private static final String GET_ALL_ALBUM = "select albumid,artistid,genreid From " + tableName;
+	private static final String GET_ALBUM_BY_ID = GET_ALL_ALBUM + " where albumid = ?";
 	private static final String File_Path = "C:/euphonyDataSet/track1/albumData1.txt";
 
 	public void insertAlbum() {
@@ -112,6 +113,34 @@ public class AlbumDAO {
 		return null;
 	}
 	
+	public Album getAlbumById(Integer albumid){
+		Album album = new Album();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_ALBUM_BY_ID);
+			prepStmt.setInt(1, albumid);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				album = setAlbumBeanValues(rs);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return album;
+	}
 	
 	public static void main(String args[]) throws IOException {
 		AlbumDAO albumDAO = new AlbumDAO();

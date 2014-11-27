@@ -17,6 +17,7 @@ public class TrackDAO {
 	private static final String INSERT_TRACK = "INSERT INTO " + tableName
 			+ " (trackid,albumid,artistid,genreid) values (?,?,?,?)";
 	private static final String GET_ALL_TRACK= "select trackid,albumid,artistid,genreid From " + tableName;
+	private static final String GET_TRACK_BY_ID = GET_ALL_TRACK + " where trackid = ? ";
 	private static final String File_Path = "C:/euphonyDataSet/track1/track1.txt";
 
 	public void insertTrack() {
@@ -112,6 +113,35 @@ public class TrackDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Track getTrackById(Integer trackid){
+		Track track = new Track();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_TRACK_BY_ID);
+			prepStmt.setInt(1, trackid);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				track = setTrackBeanValues(rs);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return track;
 	}
 	
 	public static void main(String args[]) throws IOException {
