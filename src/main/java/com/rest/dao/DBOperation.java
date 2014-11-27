@@ -6,7 +6,7 @@ public class DBOperation {
 
 	private static final String DBNAME = "euphony";
 	private static final String DB_USERNAME = "root";
-	private static final String DB_PASSWORD = "rootroot";
+	private static final String DB_PASSWORD = "root";
 	
 	
 	public static Connection getConnection() throws Exception {
@@ -94,22 +94,6 @@ public class DBOperation {
 			System.out.println("Error while closing connection.");
 		}
 	}
-	public static void updateLastLogin(Timestamp date,Long user_id){
-		
-		Connection conn;
-		try {
-			conn = getConnection();			
-			PreparedStatement pStmt = conn.prepareStatement("UPDATE user SET last_login = ? WHERE user_id = ?");
-			pStmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-			pStmt.setLong(2, user_id);
-			pStmt.executeUpdate();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-
-		
-	}
+	
 
 }

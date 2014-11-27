@@ -27,8 +27,7 @@ public class UserDAO {
 			userResult = setUserBeanValues(rs);
 			if(userResult != null){
 				java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());	
-				//update the last login
-				DBOperation.updateLastLogin(date,userResult.getUser_id());
+							
 				userView.setUser(userResult);
 				String msg = "Welcome "+userResult.getFname()+" !";
 				userView.setMessage(msg);				
@@ -68,8 +67,7 @@ public class UserDAO {
 			rs = prepStmt1.executeQuery();
 			user_id = rs.getLong(1);
 			java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());	
-			//update the last login
-			DBOperation.updateLastLogin(date,user_id);
+			
 			user.setUser_id(user_id);
 			user.setLast_login(date);
 			user.setAdmin(false);
