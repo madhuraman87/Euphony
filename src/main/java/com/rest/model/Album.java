@@ -4,11 +4,8 @@ import java.util.List;
 
 public class Album {
 	private int albumid;
-	private String title;
-	private int year;
-	private double price;
-	private List<String> genre;
-	private List<Artist> artistList;
+	private String genre;
+	private String artist;
 	private List<Feedback> feedbackList;
 	private List<Track> trackList;
 	public int getAlbumid() {
@@ -17,35 +14,17 @@ public class Album {
 	public void setAlbumid(int albumid) {
 		this.albumid = albumid;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public List<String> getGenre() {
+	public String getGenre() {
 		return genre;
 	}
-	public void setGenre(List<String> genre) {
+	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public List<Artist> getArtistList() {
-		return artistList;
+	public String getArtist() {
+		return artist;
 	}
-	public void setArtistList(List<Artist> artistList) {
-		this.artistList = artistList;
+	public void setArtist(String artist) {
+		this.artist = artist;
 	}
 	public List<Feedback> getFeedbackList() {
 		return feedbackList;
@@ -59,4 +38,5 @@ public class Album {
 	public void setTrackList(List<Track> trackList) {
 		this.trackList = trackList;
 	}
+	
 }

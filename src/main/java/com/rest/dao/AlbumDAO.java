@@ -62,6 +62,8 @@ public class AlbumDAO {
 		}
 	}
 	
+	
+	
 	public static void main(String args[]) throws IOException {
 		AlbumDAO albumDAO = new AlbumDAO();
 		albumDAO.insertAlbum();

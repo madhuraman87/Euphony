@@ -12,7 +12,7 @@ public class TrackDAO {
 	private static final String INSERT_TRACK = "INSERT INTO " + tableName
 			+ " (trackid,albumid,artistid,genreid) values (?,?,?,?)";
 	private static final String GET_ALL_TRACK= "select * From " + tableName;
-	private static final String File_Path = "C:/euphonyDataSet/track1/track5.txt";
+	private static final String File_Path = "C:/euphonyDataSet/track1/track1.txt";
 
 	public void insertTrack() {
 		Connection conn = null;
