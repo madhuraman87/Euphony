@@ -5,13 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.rest.model.Album;
 
 public class AlbumDAO {
 	private static final String tableName = "album";
 	private static final String INSERT_ALBUM = "INSERT INTO " + tableName
 			+ " (albumid,artistid,genreid) values (?,?,?)";
-	private static final String GET_ALL_ALBUM = "select * From " + tableName;
+	private static final String GET_ALL_ALBUM = "select albumid,artistid,genreid From " + tableName;
 	private static final String File_Path = "C:/euphonyDataSet/track1/albumData1.txt";
 
 	public void insertAlbum() {
@@ -62,6 +67,50 @@ public class AlbumDAO {
 		}
 	}
 	
+	public List<Album> getAllAlbum() {
+		List<Album> albumList = new ArrayList<Album>();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_ALL_ALBUM);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				albumList.add(setAlbumBeanValues(rs));
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return albumList;
+	}
+
+	public Album setAlbumBeanValues(ResultSet rs) {
+		try {
+			if (rs.next()) {
+				Album album = new Album();
+				album.setAlbumid(rs.getInt(1));
+				album.setArtist(rs.getInt(2));
+				album.setGenre(rs.getString(2));
+				return album;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	public static void main(String args[]) throws IOException {

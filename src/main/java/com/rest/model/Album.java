@@ -3,15 +3,15 @@ package com.rest.model;
 import java.util.List;
 
 public class Album {
-	private int albumid;
+	private Integer albumid;
 	private String genre;
-	private String artist;
+	private Integer artist;
 	private List<Feedback> feedbackList;
 	private List<Track> trackList;
-	public int getAlbumid() {
+	public Integer getAlbumid() {
 		return albumid;
 	}
-	public void setAlbumid(int albumid) {
+	public void setAlbumid(Integer albumid) {
 		this.albumid = albumid;
 	}
 	public String getGenre() {
@@ -20,10 +20,10 @@ public class Album {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public String getArtist() {
+	public Integer getArtist() {
 		return artist;
 	}
-	public void setArtist(String artist) {
+	public void setArtist(Integer artist) {
 		this.artist = artist;
 	}
 	public List<Feedback> getFeedbackList() {
