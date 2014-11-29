@@ -3,9 +3,8 @@ package com.rest.model;
 public class ShoppingCart {
 	private int userid;
 	private int trackid;
-	private int albumid;
-	private String title;
-	private double price;
+	private String albumid;
+	private String artistid;
 	private String genre;
 	public int getUserid() {
 		return userid;
@@ -19,23 +18,17 @@ public class ShoppingCart {
 	public void setTrackid(int trackid) {
 		this.trackid = trackid;
 	}
-	public int getAlbumid() {
+	public String getAlbumid() {
 		return albumid;
 	}
-	public void setAlbumid(int albumid) {
+	public void setAlbumid(String albumid) {
 		this.albumid = albumid;
 	}
-	public String getTitle() {
-		return title;
+	public String getArtistid() {
+		return artistid;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setArtistid(String artistid) {
+		this.artistid = artistid;
 	}
 	public String getGenre() {
 		return genre;
@@ -43,4 +36,5 @@ public class ShoppingCart {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
+	
 }

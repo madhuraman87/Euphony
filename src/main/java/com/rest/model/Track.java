@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Track {
 	private Integer trackid;
-	private Integer albumid;
+	private String albumid;
 	private String genre;
-	private Integer artist;
+	private String artist;
 	private List<Feedback> feedbackList;
 	public Integer getTrackid() {
 		return trackid;
@@ -14,10 +14,10 @@ public class Track {
 	public void setTrackid(Integer trackid) {
 		this.trackid = trackid;
 	}
-	public Integer getAlbumid() {
+	public String getAlbumid() {
 		return albumid;
 	}
-	public void setAlbumid(Integer albumid) {
+	public void setAlbumid(String albumid) {
 		this.albumid = albumid;
 	}
 	public String getGenre() {
@@ -26,10 +26,10 @@ public class Track {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public Integer getArtist() {
+	public String getArtist() {
 		return artist;
 	}
-	public void setArtist(Integer artist) {
+	public void setArtist(String artist) {
 		this.artist = artist;
 	}
 	public List<Feedback> getFeedbackList() {

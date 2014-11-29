@@ -11,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rest.model.Track;
+import com.rest.model.TrackView;
 
 public class TrackDAO {
 	private static final String tableName = "track";
 	private static final String INSERT_TRACK = "INSERT INTO " + tableName
 			+ " (trackid,albumid,artistid,genreid) values (?,?,?,?)";
-	private static final String GET_ALL_TRACK= "select trackid,albumid,artistid,genreid From " + tableName;
-	private static final String GET_TRACK_BY_ID = GET_ALL_TRACK + " where trackid = ? ";
+	private static final String GET_ALL_TRACK = "select trackid,albumid,artistid,genreid From "
+			+ tableName;
+	private static final String GET_TRACK_BY_ID = GET_ALL_TRACK
+			+ " where trackid = ? ";
 	private static final String File_Path = "C:/euphonyDataSet/track1/track1.txt";
 
 	public void insertTrack() {
@@ -69,7 +72,7 @@ public class TrackDAO {
 		}
 	}
 
-	public List<Track> getAllTrack() {
+	public TrackView getAllTrack() {
 		List<Track> trackList = new ArrayList<Track>();
 		Connection conn = null;
 		try {
@@ -94,28 +97,21 @@ public class TrackDAO {
 				e.printStackTrace();
 			}
 		}
-		return trackList;
+		return new TrackView(trackList);
 	}
 
-	public Track setTrackBeanValues(ResultSet rs) {
-		try {
-			if (rs.next()) {
-				Track track = new Track();
-				track.setTrackid(rs.getInt(1));
-				track.setAlbumid(rs.getInt(2));
-				track.setArtist(rs.getInt(3));
-				track.setGenre(rs.getString(4));
-				return track;
-			}
+	public Track setTrackBeanValues(ResultSet rs) throws SQLException {
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		Track track = new Track();
+		track.setTrackid(rs.getInt(1));
+		track.setAlbumid(rs.getString(2));
+		track.setArtist(rs.getString(3));
+		track.setGenre(rs.getString(4));
+		return track;
+
 	}
-	
-	public Track getTrackById(Integer trackid){
+
+	public Track getTrackById(Integer trackid) {
 		Track track = new Track();
 		Connection conn = null;
 		try {
@@ -143,7 +139,7 @@ public class TrackDAO {
 		}
 		return track;
 	}
-	
+
 	public static void main(String args[]) throws IOException {
 		TrackDAO trackDAO = new TrackDAO();
 		trackDAO.insertTrack();

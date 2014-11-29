@@ -1,13 +1,11 @@
 package com.rest.model;
 
-import java.util.List;
 
 public class Album {
 	private Integer albumid;
 	private String genre;
-	private Integer artist;
-	private List<Feedback> feedbackList;
-	private List<Track> trackList;
+	private String artist;
+
 	public Integer getAlbumid() {
 		return albumid;
 	}
@@ -20,23 +18,12 @@ public class Album {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public Integer getArtist() {
+	public String getArtist() {
 		return artist;
 	}
-	public void setArtist(Integer artist) {
+	public void setArtist(String artist) {
 		this.artist = artist;
 	}
-	public List<Feedback> getFeedbackList() {
-		return feedbackList;
-	}
-	public void setFeedbackList(List<Feedback> feedbackList) {
-		this.feedbackList = feedbackList;
-	}
-	public List<Track> getTrackList() {
-		return trackList;
-	}
-	public void setTrackList(List<Track> trackList) {
-		this.trackList = trackList;
-	}
+	
 	
 }
