@@ -1,4 +1,4 @@
-
+var userid;
 $(document).ready(function() {	
 	
 	
@@ -41,7 +41,11 @@ $(document).ready(function() {
 		}
 	);
 
-	
+	$('#feedback_save').bind('click', function(){	
+		if ($('#feedbackForm').valid()) {
+			onSubmit();
+		}
+	});
 });
 
 function addToCart(){
@@ -52,6 +56,24 @@ function addToCart(){
 	getAlbumByID(id);
 }
 
+function onSubmit(){	
+	console.log("hi");
+	var feedback = {};
+	feedback.userid = userid;
+	feedback.trackid = $("#track_id").val();
+	feedback.albumid = $("#album_id").val();
+	feedback.artistid = $("#artist_id").val();
+	feedback.genre = $("#genre_id").val();
+	feedback.score = $("#score").val();
+	
+	console.log("User ID: "+userid);
+	console.log("Track ID: "+feedback.trackid);
+	console.log("Album ID: "+feedback.albumid);
+	console.log("Artist ID: "+feedback.artistid);
+	console.log("Genre ID: "+feedback.genre);
+	console.log("Score: "+feedback.score);
+
+}
 
 function getAlbumByID(id){				
     var uri='/euphony/rest/album/getalbum/'+id;

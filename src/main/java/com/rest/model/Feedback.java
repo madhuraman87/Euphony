@@ -1,46 +1,49 @@
 package com.rest.model;
 
 public class Feedback {
-	private int feedbackid;
+	
 	private int userid;
-	private int trackid;
-	private int albumid;
-	private String comments;
-	private double rating;
-	public int getFeedbackid() {
-		return feedbackid;
-	}
-	public void setFeedbackid(int feedbackid) {
-		this.feedbackid = feedbackid;
-	}
+	private String trackid;
+	private String albumid;
+	private String genre;
+	private String artistid;
+	private int score;
 	public int getUserid() {
 		return userid;
 	}
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public int getTrackid() {
+	public String getTrackid() {
 		return trackid;
 	}
-	public void setTrackid(int trackid) {
+	public void setTrackid(String trackid) {
 		this.trackid = trackid;
 	}
-	public int getAlbumid() {
+	public String getAlbumid() {
 		return albumid;
 	}
-	public void setAlbumid(int albumid) {
+	public void setAlbumid(String albumid) {
 		this.albumid = albumid;
 	}
-	public String getComments() {
-		return comments;
+	public String getGenre() {
+		return genre;
 	}
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
-	public double getRating() {
-		return rating;
+	public String getArtistid() {
+		return artistid;
 	}
-	public void setRating(double rating) {
-		this.rating = rating;
+	public void setArtistid(String artistid) {
+		this.artistid = artistid;
 	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	
 }

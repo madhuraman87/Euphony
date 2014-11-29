@@ -68,7 +68,19 @@
 								
 							</div>
 						</div>
-						<br><br><br>						
+						<br><br><br>	
+							<div class="control-group" id="trackdiv">
+							<div class="controls">
+								<div class="col-xs-6 col-md-4">						
+										<label class="required" for="track_id" style="display: inline;">Score:</label>
+									</div>
+									<div class="col-xs-12 col-md-8">
+										<input id="score" name="score" type="text" class="form-control " placeholder="Score"
+									style="display: inline;" required >
+								</div>	
+								
+							</div>
+						</div>					
 						<div class="control-group">
 							<div class="controls">
 								<div class="col-xs-6 col-md-4">						

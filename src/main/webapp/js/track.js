@@ -44,6 +44,23 @@ function addToCart(){
 	getTrackByID(id);
 }
 
+function onSubmit(){	
+	var feedback = {};
+	feedback.userid = userid;
+	feedback.trackid = $("#track_id").val();
+	feedback.albumid = $("#album_id").val();
+	feedback.artistid = $("#artist_id").val();
+	feedback.genre = $("#genre_id").val();
+	feedback.score = $("#score").val();
+	
+	console.log("User ID: "+userid);
+	console.log("Track ID: "+feedback.trackid);
+	console.log("Album ID: "+feedback.albumid);
+	console.log("Artist ID: "+feedback.artistid);
+	console.log("Genre ID: "+feedback.genre);
+	console.log("Score: "+feedback.score);
+
+}
 
 
 function getTrackByID(id){				
@@ -67,7 +84,7 @@ function populateTrackFeedback(data, textStatus, jqXHR){
 	$("#album_id").val(data.albumid).attr({
 		"disabled":"disabled"
 	});
-	//$("#trackdiv").show();
+	
 	$("#artist_id").val(data.artist).attr({
 		"disabled":"disabled"
 	});
