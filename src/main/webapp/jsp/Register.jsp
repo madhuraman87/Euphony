@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Web Store</title>
+<title>Euphony</title>
 <link rel="stylesheet" type="text/css"
 	href="/euphony/css3/transparent.css">
 <!-- <script src="../css3/prefixfree.min.js"></script> -->
