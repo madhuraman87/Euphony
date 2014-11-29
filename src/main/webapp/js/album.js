@@ -72,8 +72,22 @@ function onSubmit(){
 	console.log("Artist ID: "+feedback.artistid);
 	console.log("Genre ID: "+feedback.genre);
 	console.log("Score: "+feedback.score);
+	
+//	addFeedback(feedback);
 
 }
+
+function addFeedback(feedback){				
+    var uri='/euphony/rest/feedback/add';
+    $.ajax({
+	    	type:'POST',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	data: JSON.stringify(feedback),
+    	});
+}
+
+
 
 function getAlbumByID(id){				
     var uri='/euphony/rest/album/getalbum/'+id;
