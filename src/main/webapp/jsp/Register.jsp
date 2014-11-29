@@ -13,10 +13,10 @@
 </head>
 <body>
 <%@include file="../jsp/Script.jsp" %>
- <form id="loginForm" class="form-horizontal">
+ <form id="registerForm" class="form-horizontal">
 	<div class="result"><span id="result" style="color: red"></span></div>
 	<div class="body"></div>
-	<div class="grad"></div>
+	<div class="grad"><span id="result"></span></div>
 	<div class="header">
 		<div>
 			Euphony
@@ -24,12 +24,16 @@
 	</div>
 	<br>
 	<div class="login">
-		<input id="userid" type="number" placeholder="userid" name="userid" required><br>
-		<input id="password" type="password" placeholder="password" name="password" required><br>
-		<input id="login" type="button" value="Login">
-		<input id="register" type="button" value="Register">
+		<input type="number" placeholder="User ID" name="userid" id="userid" required="required"><br><br>
+		<input type="password" placeholder="password" name="password" id="password"  required="required"><br>
+		<input id="signup" type="button" value="Register">
+		<div>
+			<h4 ><a href="../jsp/Login.jsp" style="color: #FFFFFF;">Click Here to Login</a></h4>
+		</div>
+		
 	</div>
 	</form>
+
 	<script type="text/javascript" charset="utf-8"
 	src="/euphony/js/login.js"></script>
 </body>
