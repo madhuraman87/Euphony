@@ -17,7 +17,7 @@ public class UserDAO {
 	private static final String tableName = "user";
 	private static final String INSERT_USER = "INSERT INTO " + tableName + " (userid, password) values (?,?)";
 	private static final String LOGIN_QUERY = "SELECT userid, password FROM " + tableName + " where userid=? and password=?";
-	private static final String File_Path = "C:/euphonyDataSet/track1/ratings2.csv";
+	private static final String File_Path = "C:/euphonyDataSet/track2/ratings2.csv";
 	
 	public UserView validateUser(User user){
 		Connection conn=null;
