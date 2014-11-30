@@ -5,7 +5,8 @@ $(document).ready(function() {
 			user.userid=$("#userid").val();
 			user.password=$("#password").val();
 			signin(user);
-		}		
+		}
+		
 	});
 	$('#register').bind('click', function() {		
 		var url = "/euphony/jsp/Register.jsp";    
@@ -16,6 +17,7 @@ $(document).ready(function() {
 			var user = {};
 			user.userid = $("#userid").val();			
 			user.password = $("#password").val();
+			
 			signup(user);
 		}
 	});
@@ -37,23 +39,25 @@ $(document).ready(function() {
 	});	
 	
 	
-//	validator =  $('#registerForm').validate({    	
-//		rules:{		
-//			email:{required:true,email: true},
-//			password:{required:true}, 
-//			fname:{required:true},
-//			lname:{required:true}
-//		},
-//		highlight: function(label) {
-//			$(label).closest('.control-group').addClass('error');
-//		},
-//		unhighlight:function(label){
-//			$(label).closest('.control-group').removeClass('error');
-//		},
-//		success: function(label) {
-//			$(label).closest('.control-group').addClass('success');
-//		}
-//	});
+	validator =  $('#registerForm').validate({    	
+		rules:{		
+			email:{required:true,email: true},
+			password:{required:true}, 
+			fname:{required:true},
+			lname:{required:true}
+		},
+		highlight: function(label) {
+			$(label).closest('.control-group').addClass('error');
+		},
+		unhighlight:function(label){
+			$(label).closest('.control-group').removeClass('error');
+		},
+		success: function(label) {
+			$(label).closest('.control-group').addClass('success');
+		}
+	});	
+	
+	
 	
 });
 

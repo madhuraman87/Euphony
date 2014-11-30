@@ -1,8 +1,5 @@
 package com.rest.dao;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,27 +11,25 @@ import com.rest.model.UserView;
 
 
 public class UserDAO {
-	private static final String tableName = "user";
-	private static final String INSERT_USER = "INSERT INTO " + tableName + " (userid, password) values (?,?)";
-	private static final String LOGIN_QUERY = "SELECT userid, password FROM " + tableName + " where userid=? and password=?";
-	private static final String File_Path = "/home/madhuajeeth/Desktop/CMPE282/Group Proj/data/track1/ratings2.csv";
-	
+	private static final String LOGIN_QUERY = "select * from user where email=? and password=?";
+	private static final String INSERT_USER= "insert into user (fname,lname,email,password) values (?,?,?,?)";
+
 	public UserView validateUser(User user){
-		Connection conn = null;
-		//User user = new User();
+		Connection conn=null;
 		UserView userView = new UserView();
 		User userResult = null;
 		try {
 			conn = DBOperation.getConnection();
 			PreparedStatement prepStmt = conn.prepareStatement(LOGIN_QUERY);
-			prepStmt.setInt(1, user.getUserid());
+			prepStmt.setString(1, user.getEmail());
 			prepStmt.setString(2, user.getPassword());
 			ResultSet rs = prepStmt.executeQuery();				
 			userResult = setUserBeanValues(rs);
 			if(userResult != null){
+				java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());	
+							
 				userView.setUser(userResult);
-				String msg = "Welcome "+ userResult.getUserid() +" !";
-				//userView.setMessage("Welcome to Euphony, Oh Earthling!!!");
+				String msg = "Welcome "+userResult.getFname()+" !";
 				userView.setMessage(msg);				
 			}else{
 				userView.setMessage("Invalid User Name or password !");
@@ -58,16 +53,27 @@ public class UserDAO {
 	public UserView addUser(User user){	
 		UserView userView = new UserView();
 		Connection conn = null;
+		Long user_id;
+		ResultSet rs;
 		try {			
 			conn = DBOperation.getConnection();
 			PreparedStatement prepStmt = conn.prepareStatement(INSERT_USER);
-			prepStmt.setInt(1, user.getUserid());
-			prepStmt.setString(2, user.getPassword());
+			prepStmt.setString(1, user.getFname());
+			prepStmt.setString(2, user.getLname());
+			prepStmt.setString(3, user.getEmail());
+			prepStmt.setString(4, user.getPassword());
 			prepStmt.executeUpdate();					
-			userView.setUser(user);	
-			userView.setMessage("User added successfully!!!");
+			PreparedStatement prepStmt1 = conn.prepareStatement("select last_insert_id() from webstore.user");
+			rs = prepStmt1.executeQuery();
+			user_id = rs.getLong(1);
+			java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());	
+			
+			user.setUser_id(user_id);
+			user.setLast_login(date);
+			user.setAdmin(false);
+			userView.setUser(user);
 		} catch(MySQLIntegrityConstraintViolationException ex){
-			userView.setMessage("User with this user_id alreday exists ! Please sign up with different user_id !");
+			userView.setMessage("User with this email alreday exists ! Please sign up with different email !");
 			return userView;
 		}catch (Exception e) {
 			// TODO Auto-generated catch block			
@@ -82,44 +88,27 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 		}
-		return userView;		
+		return userView;
+		
 	}
 
-	public void insertUser() {
-		Connection conn = null;
-		try {
-			conn = DBOperation.getConnection();
-			BufferedReader br = new BufferedReader(new FileReader(File_Path));
-			String line;
-			while ((line = br.readLine()) != null) {
-
-				PreparedStatement prepStmt = conn.prepareStatement(INSERT_USER);
-				prepStmt.setInt(1, Integer.valueOf(line));
-				prepStmt.setString(2, line);
-				prepStmt.executeUpdate();
-			}
-			br.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null && !conn.isClosed()) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	public User setUserBeanValues(ResultSet rs){
 		try {
 			if(rs.next()) {
 				User user = new User();
-				user.setUserid(rs.getInt(1));			
-				user.setPassword(rs.getString(2));
+				java.util.Date date = rs.getTimestamp("last_login");
+				user.setUser_id(rs.getLong("user_id"));			
+				user.setFname(rs.getString("fname"));
+				user.setLname(rs.getString("lname"));
+				user.setEmail(rs.getString("email"));				
+				user.setPassword(rs.getString("password"));
+				user.setLast_login(date);	
+				if(rs.getInt("is_admin") == 0){
+					user.setAdmin(false);
+				}else{
+					user.setAdmin(true);
+				}
 				return user;
 			}				
 			
@@ -128,10 +117,5 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	public static void main(String args[]) throws IOException {
-		UserDAO userDAO = new UserDAO();
-		userDAO.insertUser();
 	}
 }

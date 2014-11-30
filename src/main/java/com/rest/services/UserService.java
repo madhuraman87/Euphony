@@ -14,14 +14,13 @@ import com.rest.model.UserView;
 
 @Path(value = "/user")
 public class UserService {
-	//UserDAO userDAO = new UserDAO();
+	UserDAO userDAO = new UserDAO();
 	
 	@POST
 	@Path("/signin")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public UserView login(@Context HttpServletRequest request,final User user) {
-		UserDAO userDAO = new UserDAO();
 		UserView userView =  userDAO.validateUser(user);
 		request.getSession().setAttribute("user", userView);		
 		return userView;
@@ -32,7 +31,6 @@ public class UserService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public UserView addUser(@Context HttpServletRequest request,final User user) {
-		UserDAO userDAO = new UserDAO();
 		UserView userView = userDAO.addUser(user);
 		request.getSession().setAttribute("user", userView);		
 		return userView;
