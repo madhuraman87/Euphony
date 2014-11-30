@@ -73,7 +73,7 @@ table.table th {
 	text-align: center;
 }
 
-*, *:before, *:after {
+*,*:before,*:after {
 	box-sizing: border-box !important;
 }
 
@@ -101,6 +101,7 @@ table.table th {
 	<%@include file="../jsp/Header.jsp"%>
 	<%@include file="../jsp/Script.jsp"%>
 	<div class="container-fluid" id="container" style="margin-top: 2%;">
+		<input type="hidden" id="userid" value="<%=user.getUserid()%>">
 		<div class="col-xs-6">
 			<!-- Text input-->
 			<div class="control-group ">
@@ -176,32 +177,25 @@ table.table th {
 				</div>
 			</div>
 			<br> <br> <br>
-			<div class="control-group">
-				<div class="controls">
-					<div class="col-xs-2">
-						<label class="required" for="type" style="display: inline;">Feedback</label>
-					</div>
-					<div class="col-xs-5">
-						<input id="feedback" name="feedback" type="number"
-							class="form-control " placeholder="Feedback Score"
-							style="display: inline;" required>
 
-					</div>
-					<div class="col-xs-2">
-						<input id="feedback_save" class="button btn-primary" type="submit"
-							value="Submit Feedback" style="display: inline;" />
-					</div>
-				</div>
-			</div>
 
 		</div>
 		<div class="col-xs-6">
 			<!-- Item-->
-			<h3 style="text-align: center;color: #1f97c7;">Item Recommendations</h3>
+			<h3 style="text-align: center; color: #1f97c7;">Item
+				Recommendations</h3>
 			<div class="row">
 				<div class="item">
 					<div class="well">
-						Track ID : <input id="item_trackid_1" name="item_trackid_1"
+						Track ID : <input id="item_trackid_0" name="item_trackid_0"
+							class="form-control " style="display: inline;"> <br>
+						Score : <input id="item_score_0" name="item_score_0"
+							class="form-control " style="display: inline;">
+					</div>
+				</div>
+				<div class="item">
+					<div class="well">
+						Track ID : <input id="item_trackid_1" name="item_trackid_"
 							class="form-control " style="display: inline;"> <br>
 						Score : <input id="item_score_1" name="item_score_1"
 							class="form-control " style="display: inline;">
@@ -231,22 +225,23 @@ table.table th {
 							class="form-control " style="display: inline;">
 					</div>
 				</div>
-				<div class="item">
-					<div class="well">
-						Track ID : <input id="item_trackid_5" name="item_trackid_5"
-							class="form-control " style="display: inline;"> <br>
-						Score : <input id="item_score_5" name="item_score_5"
-							class="form-control " style="display: inline;">
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 	<!-- <div class="container-fluid" id="container1" style="margin-top: 2%;"> -->
 	<div class="col-xs-6">
 		<!-- User -->
-		<h3 style="text-align: center;color: #1f97c7;;">User Recommendations</h3>
+		<h3 style="text-align: center; color: #1f97c7;">User
+			Recommendations</h3>
 		<div class="row">
+			<div class="item">
+				<div class="well">
+					Track ID : <input id="user_trackid_0" name="user_trackid_0"
+						class="form-control " style="display: inline;"> <br>
+					Score : <input id="user_score_0" name="user_score_0"
+						class="form-control " style="display: inline;">
+				</div>
+			</div>
 			<div class="item">
 				<div class="well">
 					Track ID : <input id="user_trackid_1" name="user_trackid_1"
@@ -255,6 +250,7 @@ table.table th {
 						class="form-control " style="display: inline;">
 				</div>
 			</div>
+
 			<div class="item">
 				<div class="well">
 					Track ID : <input id="user_trackid_2" name="user_trackid_2"
@@ -263,36 +259,22 @@ table.table th {
 						class="form-control " style="display: inline;">
 				</div>
 			</div>
-			<div class="item">
-				<div class="well">
-					Track ID : <input id="user_trackid_3" name="user_trackid_3"
-						class="form-control " style="display: inline;"> <br>
-					Score : <input id="user_score_3" name="user_score_3"
-						class="form-control " style="display: inline;">
-				</div>
-			</div>
-			<div class="item">
-				<div class="well">
-					Track ID : <input id="user_trackid_4" name="user_trackid_4"
-						class="form-control " style="display: inline;"> <br>
-					Score : <input id="user_score_4" name="user_score_4"
-						class="form-control " style="display: inline;">
-				</div>
-			</div>
-			<div class="item">
-				<div class="well">
-					Track ID : <input id="user_trackid_5" name="user_trackid_5"
-						class="form-control " style="display: inline;"> <br>
-					Score : <input id="user_score_5" name="user_score_5"
-						class="form-control " style="display: inline;">
-				</div>
-			</div>
+
 		</div>
 	</div>
 	<div class="col-xs-6">
 		<!-- Personalize -->
-		<h3 style="text-align: center;color: #1f97c7;;">Personalized Recommendations</h3>
+		<h3 style="text-align: center; color: #1f97c7;">Personalized
+			Recommendations</h3>
 		<div class="row">
+			<div class="item">
+				<div class="well">
+					Track ID : <input id="personal_trackid_0" name="personal_trackid_0"
+						class="form-control " style="display: inline;"> <br>
+					Score : <input id="personal_score_0" name="personal_score_0"
+						class="form-control " style="display: inline;">
+				</div>
+			</div>
 			<div class="item">
 				<div class="well">
 					Track ID : <input id="personal_trackid_1" name="personal_trackid_1"
@@ -322,14 +304,6 @@ table.table th {
 					Track ID : <input id="personal_trackid_4" name="personal_trackid_4"
 						class="form-control " style="display: inline;"> <br>
 					Score : <input id="personal_score_4" name="personal_score_4"
-						class="form-control " style="display: inline;">
-				</div>
-			</div>
-			<div class="item">
-				<div class="well">
-					Track ID : <input id="personal_trackid_5" name="personal_trackid_5"
-						class="form-control " style="display: inline;"> <br>
-					Score : <input id="personal_score_5" name="personal_score_5"
 						class="form-control " style="display: inline;">
 				</div>
 			</div>

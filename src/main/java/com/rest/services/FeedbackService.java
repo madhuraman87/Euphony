@@ -33,11 +33,11 @@ public class FeedbackService {
 	}
 
 	@GET
-	@Path("/all")
+	@Path("/all/{userid}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FeedbackView getAllFeedback() {
+	public FeedbackView getAllFeedback(@PathParam("userid") int userid) {
 		FeedBackDAO feedBackDAO = new FeedBackDAO();
-		return feedBackDAO.getAllFeedback();
+		return feedBackDAO.getAllFeedback(userid);
 	}
 	
 	@GET

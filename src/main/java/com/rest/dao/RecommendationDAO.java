@@ -44,7 +44,7 @@ public class RecommendationDAO {
 
 	
 	
-	public ItemRecommendationView getAllItemRecommendation(int userid) {
+	public List<ItemRecommendation> getAllItemRecommendation(int userid) {
 		List<ItemRecommendation> itemRecommendationList = new ArrayList<ItemRecommendation>();
 		Connection conn = null;
 		try {
@@ -70,7 +70,7 @@ public class RecommendationDAO {
 				e.printStackTrace();
 			}
 		}
-		return new ItemRecommendationView(itemRecommendationList);
+		return itemRecommendationList;
 	}
 
 	public ItemRecommendation setItemRecommendationBeanValues(ResultSet rs)throws SQLException  {
@@ -82,7 +82,7 @@ public class RecommendationDAO {
 
 	}
 
-	public UserRecommendationView getAllUserRecommendation(int userid) {
+	public List<UserRecommendation>  getAllUserRecommendation(int userid) {
 		List<UserRecommendation> userRecommendationList = new ArrayList<UserRecommendation>();
 		Connection conn = null;
 		try {
@@ -108,7 +108,7 @@ public class RecommendationDAO {
 				e.printStackTrace();
 			}
 		}
-		return new UserRecommendationView(userRecommendationList);
+		return userRecommendationList;
 	}
 
 	public UserRecommendation setUserRecommendationBeanValues(ResultSet rs)throws SQLException  {
@@ -121,7 +121,7 @@ public class RecommendationDAO {
 	}
 	
 	
-	public PersonalizeRecommendationView getAllPersonalizeRecommendation(int userid) {
+	public 	List<PersonalizeRecommendation> getAllPersonalizeRecommendation(int userid) {
 		List<PersonalizeRecommendation> personalizeRecommendationList = new ArrayList<PersonalizeRecommendation>();
 		Connection conn = null;
 		try {
@@ -147,7 +147,7 @@ public class RecommendationDAO {
 				e.printStackTrace();
 			}
 		}
-		return new PersonalizeRecommendationView(personalizeRecommendationList);
+		return personalizeRecommendationList;
 	}
 
 	public PersonalizeRecommendation setPersonalizeRecommendationBeanValues(ResultSet rs)throws SQLException  {

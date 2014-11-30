@@ -13,7 +13,7 @@ import com.rest.model.FeedbackView;
 public class FeedBackDAO {
 	private static final String ADD_FEEDBACK = "insert into feedback (userid,trackid,score) values (?,?,?)";
 	private static final String GET_FEEDBACK = "select userid,trackid,score from feedback where userid=? and trackid=?";
-	private static final String GET_ALL_FEEDBACK = "select userid,trackid,score from feedback";	
+	private static final String GET_ALL_FEEDBACK = "select userid,trackid,score from feedback where userid = ?";	
 	private static final String UPDATE_FEEDBACK = "update feedback set score = ? where userid= ? and trackid = ?";
 	
 	public void addFeedback(Feedback feedback) {
@@ -112,13 +112,14 @@ public class FeedBackDAO {
 		return feedback;
 	}
 	
-	public FeedbackView getAllFeedback() {
+	public FeedbackView getAllFeedback(int userid) {
 		List<Feedback> feedbackList = new ArrayList<Feedback>();
 		Connection conn = null;
 		try {
 			//
 			conn = DBOperation.getConnection();
 			PreparedStatement prepStmt = conn.prepareStatement(GET_ALL_FEEDBACK);
+			prepStmt.setInt(1, userid);
 			ResultSet rs = prepStmt.executeQuery();
 			while (rs.next()) {
 				feedbackList.add(setFeedbackBeanValues(rs));

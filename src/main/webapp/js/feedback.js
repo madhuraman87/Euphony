@@ -4,7 +4,7 @@ $(document).ready(function() {
 	userid = $("#userid").val();
 	var feedbackTable = $('#feedbackTable').dataTable({
 		destroy: true,
-		ajax : "/euphony/rest/feedback/all",
+		ajax : "/euphony/rest/feedback/all/"+userid,
 		columns : [{
 			"data" : "trackid"
 		},{
