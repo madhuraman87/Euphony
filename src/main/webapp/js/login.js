@@ -39,28 +39,25 @@ $(document).ready(function() {
 	});	
 	
 	
-	validator =  $('#registerForm').validate({    	
-		rules:{		
-			email:{required:true,email: true},
-			password:{required:true}, 
-			fname:{required:true},
-			lname:{required:true}
-		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
-		},
-		unhighlight:function(label){
-			$(label).closest('.control-group').removeClass('error');
-		},
-		success: function(label) {
-			$(label).closest('.control-group').addClass('success');
-		}
-	});	
-	
-	
+//	validator =  $('#registerForm').validate({    	
+//		rules:{		
+//			email:{required:true,email: true},
+//			password:{required:true}, 
+//			fname:{required:true},
+//			lname:{required:true}
+//		},
+//		highlight: function(label) {
+//			$(label).closest('.control-group').addClass('error');
+//		},
+//		unhighlight:function(label){
+//			$(label).closest('.control-group').removeClass('error');
+//		},
+//		success: function(label) {
+//			$(label).closest('.control-group').addClass('success');
+//		}
+//	});	
 	
 });
-
 
 function signin(userDetails){				
     var uri='/euphony/rest/user/signin';
@@ -72,6 +69,7 @@ function signin(userDetails){
 	    	success:userSignIn
     	});
 }
+
 function signup(userDetails){    		
     var uri='/euphony/rest/user/signup';
     $.ajax({
