@@ -27,13 +27,20 @@ $(document).ready(function() {
 			$('#trackTable tbody a.modbutton').click(addToCart);
 		},
 		fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			
+			var oTable = $("#trackTable").dataTable();
+			var aData = oTable.fnGetData(nRow);	
+			$('td:eq(0)', nRow).html('<a href="#"  onclick="openTrackDetails(\''+aData.trackid+'\')"><strong>'+aData.trackid+'</strong></a>');
 			}
 		}
 	);
 
 	
 });
+
+function openTrackDetails(arg0){	
+	var url=encodeURIComponent(arg0);	
+	window.open('/euphony/jsp/TrackDetails.jsp?trackid=' + url, 'trackdetails');
+}
 
 function addToCart(){
 	var nTr = $(this).parents('tr')[0];

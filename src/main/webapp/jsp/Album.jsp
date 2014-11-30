@@ -89,7 +89,7 @@ table.table th {
 						<th style="text-align: center;">Album Id</th>
 						<th style="text-align: center;">Artist ID</th>					
 						<th style="text-align: center;">Genre</th>					
-						<th style="text-align: center;"></th>
+						<!-- <th style="text-align: center;"></th> -->
 						
 					</tr>
 				</thead>

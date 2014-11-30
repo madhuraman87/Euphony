@@ -11,7 +11,7 @@ $(document).ready(function() {
 			"data" : "artist"
 		},{
 			"data" : "genre"
-		}],
+		}]/*,
 		columnDefs : [ {
 			"targets" : [ 3 ],
 			"visible" : true,
@@ -24,7 +24,7 @@ $(document).ready(function() {
 			}
 		} ],fnDrawCallback : function(oSettings) {
 			$('#albumTable tbody a.modbutton').click(addToCart);
-		},
+		}*/,
 		fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 			// Row click
 			$(nRow).on('click', function() {		
@@ -41,14 +41,14 @@ $(document).ready(function() {
 		}
 	);
 
-	$('#feedback_save').bind('click', function(){	
+	/*$('#feedback_save').bind('click', function(){	
 		if ($('#feedbackForm').valid()) {
 			onSubmit();
 		}
-	});
+	});*/
 });
 
-function addToCart(){
+/*function addToCart(){
 	var nTr = $(this).parents('tr')[0];
 	var oTable = $("#albumTable").dataTable();
 	var aData = oTable.fnGetData(nTr);		
@@ -75,9 +75,9 @@ function onSubmit(){
 	
 //	addFeedback(feedback);
 
-}
+}*/
 
-function addFeedback(feedback){				
+/*function addFeedback(feedback){				
     var uri='/euphony/rest/feedback/add';
     $.ajax({
 	    	type:'POST',	
@@ -86,10 +86,10 @@ function addFeedback(feedback){
 	    	data: JSON.stringify(feedback),
     	});
 }
+*/
 
 
-
-function getAlbumByID(id){				
+/*function getAlbumByID(id){				
     var uri='/euphony/rest/album/getalbum/'+id;
     $.ajax({
 	    	type:'GET',	
@@ -118,5 +118,5 @@ function populateAlbumFeedback(data, textStatus, jqXHR){
 		"disabled":"disabled"
 	});
 	
-}
+}*/
 	

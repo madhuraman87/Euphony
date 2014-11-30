@@ -80,7 +80,8 @@
 								</div>	
 								
 							</div>
-						</div>					
+						</div>		
+						<br><br><br>			
 						<div class="control-group">
 							<div class="controls">
 								<div class="col-xs-6 col-md-4">						

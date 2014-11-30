@@ -26,6 +26,6 @@ public class FeedbackService {
 	@Path("/allfeedbacks")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public FeedbackView getAllFeedback() {
-		
+		FeedBackDAO feedBackDAO = new FeedBackDAO();
 	}*/
 }
