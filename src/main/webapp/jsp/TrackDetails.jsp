@@ -197,7 +197,7 @@ table.table th {
 		</div>
 		<div class="col-xs-6">
 			<!-- Item-->
-			<h3 style="text-align: center;color: blue;">Item Recommendations</h3>
+			<h3 style="text-align: center;color: #1f97c7;">Item Recommendations</h3>
 			<div class="row">
 				<div class="item">
 					<div class="well">
@@ -245,7 +245,7 @@ table.table th {
 	<!-- <div class="container-fluid" id="container1" style="margin-top: 2%;"> -->
 	<div class="col-xs-6">
 		<!-- User -->
-		<h3 style="text-align: center;color: blue;">User Recommendations</h3>
+		<h3 style="text-align: center;color: #1f97c7;;">User Recommendations</h3>
 		<div class="row">
 			<div class="item">
 				<div class="well">
@@ -291,7 +291,7 @@ table.table th {
 	</div>
 	<div class="col-xs-6">
 		<!-- Personalize -->
-		<h3 style="text-align: center;color: blue;">Personalized Recommendations</h3>
+		<h3 style="text-align: center;color: #1f97c7;;">Personalized Recommendations</h3>
 		<div class="row">
 			<div class="item">
 				<div class="well">

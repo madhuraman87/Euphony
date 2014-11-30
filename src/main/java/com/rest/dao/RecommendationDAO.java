@@ -10,6 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rest.model.ItemRecommendation;
+import com.rest.model.ItemRecommendationView;
+import com.rest.model.PersonalizeRecommendation;
+import com.rest.model.PersonalizeRecommendationView;
+import com.rest.model.UserRecommendation;
+import com.rest.model.UserRecommendationView;
+
 public class RecommendationDAO {
 	private static final String userRecommendationTable = "usercommendation";
 	private static final String itemRecommendationTable = "itemrecommendation";
@@ -25,11 +32,134 @@ public class RecommendationDAO {
 	private static final String INSERT_PERSONALIZE_ITEM_RECOMMENDATION = "INSERT INTO "
 			+ personalizeRecommendationTable
 			+ " (userid,trackid,score) values (?,?,?)";
+	
+	
+	private static final String GET_USER_RECOMMENDATION = "select trackid,score from "+userRecommendationTable + " where userid = ?";
+	private static final String GET_ITEM_RECOMMENDATION = "select trackid,score from "+itemRecommendationTable + " where userid = ?";
+	private static final String GET_PERSONALIZE_RECOMMENDATION = "select trackid,score from "+personalizeRecommendationTable + " where userid = ?";
 
 	private static final String USER_File_Path = "C:/euphonyDataSet/track2/user-user_Result.csv";
 	private static final String ITEM_File_Path = "C:/euphonyDataSet/track2/item_item_Result.txt";
 	private static final String PERSONALIZE_File_Path = "C:/euphonyDataSet/track2/output10000.txt";
 
+	
+	
+	public ItemRecommendationView getAllItemRecommendation(int userid) {
+		List<ItemRecommendation> itemRecommendationList = new ArrayList<ItemRecommendation>();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_ITEM_RECOMMENDATION);
+			prepStmt.setInt(1, userid);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				itemRecommendationList.add(setItemRecommendationBeanValues(rs));
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ItemRecommendationView(itemRecommendationList);
+	}
+
+	public ItemRecommendation setItemRecommendationBeanValues(ResultSet rs)throws SQLException  {
+
+		ItemRecommendation itemRecommendation = new ItemRecommendation();
+		itemRecommendation.setTrackid(rs.getInt(1));
+		itemRecommendation.setScore(rs.getDouble(2));
+		return itemRecommendation;
+
+	}
+
+	public UserRecommendationView getAllUserRecommendation(int userid) {
+		List<UserRecommendation> userRecommendationList = new ArrayList<UserRecommendation>();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_USER_RECOMMENDATION);
+			prepStmt.setInt(1, userid);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				userRecommendationList.add(setUserRecommendationBeanValues(rs));
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new UserRecommendationView(userRecommendationList);
+	}
+
+	public UserRecommendation setUserRecommendationBeanValues(ResultSet rs)throws SQLException  {
+
+		UserRecommendation userRecommendation = new UserRecommendation();
+		userRecommendation.setTrackid(rs.getInt(1));
+		userRecommendation.setScore(rs.getDouble(2));
+		return userRecommendation;
+
+	}
+	
+	
+	public PersonalizeRecommendationView getAllPersonalizeRecommendation(int userid) {
+		List<PersonalizeRecommendation> personalizeRecommendationList = new ArrayList<PersonalizeRecommendation>();
+		Connection conn = null;
+		try {
+			//
+			conn = DBOperation.getConnection();
+			PreparedStatement prepStmt = conn.prepareStatement(GET_PERSONALIZE_RECOMMENDATION);
+			prepStmt.setInt(1, userid);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				personalizeRecommendationList.add(setPersonalizeRecommendationBeanValues(rs));
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new PersonalizeRecommendationView(personalizeRecommendationList);
+	}
+
+	public PersonalizeRecommendation setPersonalizeRecommendationBeanValues(ResultSet rs)throws SQLException  {
+
+		PersonalizeRecommendation personalizeRecommendation = new PersonalizeRecommendation();
+		personalizeRecommendation.setTrackid(rs.getInt(1));
+		personalizeRecommendation.setScore(rs.getDouble(2));
+		return personalizeRecommendation;
+
+	}
+
+	
 	public void insertUserRecommend() {
 		Connection conn = null;
 		try {
@@ -158,7 +288,7 @@ public class RecommendationDAO {
 
 		//recommendationDAO.insertItemRecommend();
 		//recommendationDAO.insertUserRecommend();
-		recommendationDAO.insertPersonalizeRecommend();
+		//recommendationDAO.insertPersonalizeRecommend();
 	}
 
 }
