@@ -1,156 +1,143 @@
-var rowID;
-var isAdd = false;
-var productCategory;
 var userid;
-var originalQty = null;
-var originalPrice;
+var original_score;
 $(document).ready(function() {	
 	userid = $("#userid").val();
-	$('#addProduct').bind('click', function(){
-		resetAll();
-		isAdd = true;
-		console.log("inside");
-		catalogajax.getCatalogs(function(data, s, xph) {	
-			console.log("inside1");
-		    $('#productCategory').find("option:gt(0)").remove();		
-		    for (var i=0; i< data.aaData.length; i++ ) {	    	
-		    	 	var K=$('<option/>').append(data.aaData[i].name);				
-				$('#productCategory').append(K);
-		    }
-		   
-		});
-	});
-	
-
-	
-	
-	$('a[data-dismiss],button[data-dismiss]').click((function(){
-		  resetAll();
-	  }));
-	
-	validator =  $('#productForm').validate({    	
-		rules:{		
-			name:{required:true},
-		    quantity:{
-                required:  {
-                    depends:function(){
-                        $(this).val($.trim($(this).val()));
-                        return true;
-                    }   
-                },
-            customqty: true},
-		    price:{required:true}, 
-		    description:{required:true},
-		    productCategory:{required:true}
+	var feedbackTable = $('#feedbackTable').dataTable({
+		destroy: true,
+		ajax : "/euphony/rest/feedback/all",
+		columns : [{
+			"data" : "trackid"
+		},{
+			"data" : "score"
+		}],
+		columnDefs : [ {
+			"targets" : [ 2 ],
+			"visible" : true,
+			"searchable" : false,
+			bVisible : true,
+			sTitle : 'Action',
+			sWidth : '6%',
+			mRender : function(data, type, row) {
+				return '<a href="#" class="btn btn-primary modbutton">Feedback</a>';
+			}
+		} ],fnDrawCallback : function(oSettings) {
+			$('#feedbackTable tbody a.modbutton').click(addFeedback);
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
-		},
-		unhighlight:function(label){
-			$(label).closest('.control-group').removeClass('error');
-		},
-		success: function(label) {
-			$(label).closest('.control-group').addClass('success');
+		fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			
+			}
 		}
-	});	
-	 $('a[data-dismiss],button[data-dismiss]').click((function(){
-			validator.resetForm();
-		  }));
-	$('#product_save').bind('click', function(){	
-		if ($('#productForm').valid()) {
+	);
+
+	$('#feedback_save').bind('click', function(){	
+		if ($('#feedbackForm').valid()) {
 			onSubmit();
 		}
 	});
-	
-	jQuery.validator.addMethod("customqty", function(value, element) {
-		if(originalQty != null){
-		      if(originalQty >=  value)
-	               return true;
-	        else
-	                 return false;
-			}else{
-				return true;
-			}
-		}, "Please specify the quantity lesser than the available quantity");
-	
-	
-
-	
 });
 
 
-function onSubmit(){	
-    var product = {};
-    product.name = $("#name").val();
-    product.description = $("#description").val();
-    product.quantity = $("#quantity").val();
-    product.price = $("#price").val();
-    product.productCategory = $("#productCategory").val();
-	if(isAdd){		
-		productajax.addProduct(product);
-	}else{
-		var shoppingCartItem = {};
-		shoppingCartItem.userid = userid;
-		shoppingCartItem.id = rowID;
-		shoppingCartItem.name = $("#name").val();
-		shoppingCartItem.description = $("#description").val();
-		shoppingCartItem.quantity = $("#quantity").val();
-		var price = originalPrice * shoppingCartItem.quantity;
-		shoppingCartItem.price = price;
-		shoppingCartItem.productCategory = productCategory;
-		
-		shoppingcartajax.addToCart(shoppingCartItem);
-		
-	}
-}
-
-function resetAll(){	
-	$('#productModal').modal({backdrop:'static',show : true});
-	$('#myModalLabel').text('Add Product');
-	$('#productForm')[0].reset();	
-	$("#name").removeAttr('disabled');
-	$("#description").removeAttr('disabled');
-	$("#price").removeAttr('disabled');
-	$("#productCategory").removeAttr('disabled');
-	isAdd = false;	
-}
-
-function addToCart(){
+function addFeedback(){
 	var nTr = $(this).parents('tr')[0];
-	var oTable = $("#productTable").dataTable();
+	var oTable = $("#feedbackTable").dataTable();
 	var aData = oTable.fnGetData(nTr);		
-	var id = aData.id;
-	productCategory = aData.productCategory;
-	rowID = id;
-	originalQty = aData.quantity;
-	originalPrice = aData.price;
-	productajax.getProduct(rowID,productCategory);
+	var id = aData.trackid;
+	getFeedbackScore(userid,id);
+	getTrackByID(id);
+	
 }
 
-function populateProduct(data, textStatus, jqXHR){
-	$('#productModal').modal({
+function onSubmit(){	
+	var feedback = {};
+	feedback.userid = userid;
+	feedback.trackid = $("#track_id").val();	
+	var new_feedback = $("#feedback").val();
+	feedback.score = new_feedback;	
+	console.log("User ID: "+userid);
+	console.log("Track ID: "+feedback.trackid);	
+	console.log("Score: "+feedback.score);
+	if(original_score == 0 ){	
+		console.log("add");
+		insertFeedback(feedback);
+	}else{
+		console.log("update");
+		updateFeedback(feedback);
+	}
+
+
+}
+
+function insertFeedback(feedback){				
+    var uri='/euphony/rest/feedback/add';
+    $.ajax({
+	    	type:'POST',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	data: JSON.stringify(feedback),
+    	});
+}
+
+function updateFeedback(feedback){				
+    var uri='/euphony/rest/feedback/update';
+    $.ajax({
+	    	type:'PUT',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	data: JSON.stringify(feedback),
+    	});
+}
+
+function getTrackByID(id){				
+    var uri='/euphony/rest/track/gettrack/'+id;
+    $.ajax({
+	    	type:'GET',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	success:populateTrackFeedback
+    	});
+}   	
+
+function getFeedbackScore(userid,trackid){				
+    var uri='/euphony/rest/feedback/getfeedback/'+userid+"/"+trackid;
+    $.ajax({
+	    	type:'GET',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	success:populateFeedback
+    	});  
+}   
+
+function populateFeedback(data, textStatus, jqXHR){
+	original_score = data.score;
+	console.log("Original Score: "+original_score);
+	
+	$("#score").val(data.score).attr({
+		"disabled":"disabled"
+	});
+}
+
+function populateTrackFeedback(data, textStatus, jqXHR){
+	$('#feedbackModal').modal({
 		show : true,
 		keyboard : false,
 		backdrop : 'static'
 	});	
 	
-	$('#myModalLabel').text('Add To Cart');
-	$("#name").val(data.name).attr({
+	$('#myModalLabel').text('Track Feedback');
+	$("#album_id").val(data.albumid).attr({
 		"disabled":"disabled"
 	});
 	
-	$("#description").val(data.description).attr({
+	$("#artist_id").val(data.artist).attr({
 		"disabled":"disabled"
 	});
-	$("#quantity").val(data.quantity);
-	$("#price").val(data.price).attr({
+	$("#genre_id").val(data.genre).attr({
+		"disabled":"disabled"
+	});
+	$("#track_id").val(data.trackid).attr({
 		"disabled":"disabled"
 	});
 	
-	$('#productCategory').empty();
-	var K=$('<option/>').append(data.productCategory);				
-	$('#productCategory').append(K).attr({
-		"disabled":"disabled"
-	});;
+	
 	
 }

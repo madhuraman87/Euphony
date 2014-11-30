@@ -1,4 +1,5 @@
 var userid;
+var original_score;
 $(document).ready(function() {	
 	userid = $("#userid").val();
 	var trackTable = $('#trackTable').dataTable({
@@ -24,7 +25,7 @@ $(document).ready(function() {
 				return '<a href="#" class="btn btn-primary modbutton">Feedback</a>';
 			}
 		} ],fnDrawCallback : function(oSettings) {
-			$('#trackTable tbody a.modbutton').click(addToCart);
+			$('#trackTable tbody a.modbutton').click(addFeedback);
 		},
 		fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 			var oTable = $("#trackTable").dataTable();
@@ -34,7 +35,11 @@ $(document).ready(function() {
 		}
 	);
 
-	
+	$('#feedback_save').bind('click', function(){	
+		if ($('#feedbackForm').valid()) {
+			onSubmit();
+		}
+	});
 });
 
 function openTrackDetails(arg0){	
@@ -42,35 +47,37 @@ function openTrackDetails(arg0){
 	window.open('/euphony/jsp/TrackDetails.jsp?trackid=' + url, 'trackdetails');
 }
 
-function addToCart(){
+function addFeedback(){
 	var nTr = $(this).parents('tr')[0];
 	var oTable = $("#trackTable").dataTable();
 	var aData = oTable.fnGetData(nTr);		
 	var id = aData.trackid;
+	getFeedbackScore(userid,id);
 	getTrackByID(id);
+	
 }
 
 function onSubmit(){	
 	var feedback = {};
 	feedback.userid = userid;
-	feedback.trackid = $("#track_id").val();
-	feedback.albumid = $("#album_id").val();
-	feedback.artistid = $("#artist_id").val();
-	feedback.genre = $("#genre_id").val();
-	feedback.score = $("#score").val();
-	
+	feedback.trackid = $("#track_id").val();	
+	var new_feedback = $("#feedback").val();
+	feedback.score = new_feedback;	
 	console.log("User ID: "+userid);
-	console.log("Track ID: "+feedback.trackid);
-	console.log("Album ID: "+feedback.albumid);
-	console.log("Artist ID: "+feedback.artistid);
-	console.log("Genre ID: "+feedback.genre);
+	console.log("Track ID: "+feedback.trackid);	
 	console.log("Score: "+feedback.score);
-	
-//	addFeedback(feedback);
+	if(original_score == 0 ){	
+		console.log("add");
+		insertFeedback(feedback);
+	}else{
+		console.log("update");
+		updateFeedback(feedback);
+	}
+
 
 }
 
-function addFeedback(feedback){				
+function insertFeedback(feedback){				
     var uri='/euphony/rest/feedback/add';
     $.ajax({
 	    	type:'POST',	
@@ -80,6 +87,15 @@ function addFeedback(feedback){
     	});
 }
 
+function updateFeedback(feedback){				
+    var uri='/euphony/rest/feedback/update';
+    $.ajax({
+	    	type:'PUT',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	data: JSON.stringify(feedback),
+    	});
+}
 
 function getTrackByID(id){				
     var uri='/euphony/rest/track/gettrack/'+id;
@@ -90,6 +106,25 @@ function getTrackByID(id){
 	    	success:populateTrackFeedback
     	});
 }   	
+
+function getFeedbackScore(userid,trackid){				
+    var uri='/euphony/rest/feedback/getfeedback/'+userid+"/"+trackid;
+    $.ajax({
+	    	type:'GET',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	success:populateFeedback
+    	});  
+}   
+
+function populateFeedback(data, textStatus, jqXHR){
+	original_score = data.score;
+	console.log("Original Score: "+original_score);
+	
+	$("#score").val(data.score).attr({
+		"disabled":"disabled"
+	});
+}
 
 function populateTrackFeedback(data, textStatus, jqXHR){
 	$('#feedbackModal').modal({
@@ -112,5 +147,7 @@ function populateTrackFeedback(data, textStatus, jqXHR){
 	$("#track_id").val(data.trackid).attr({
 		"disabled":"disabled"
 	});
+	
+	
 	
 }
