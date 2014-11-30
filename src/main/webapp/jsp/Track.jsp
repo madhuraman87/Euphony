@@ -82,7 +82,7 @@ table.table th {
 		<div class="col-xs-12 row well" >		 
 			<h4 style="font-size: 20px; color: #317eac;text-align: center;" title="Tracks" >Tracks</h4>
 				 		
-			   <%--  <input type="hidden" id="userid" value="<%=user.getUser_id() %>"> --%>	
+			    <input type="hidden" id="userid" value="<%=user.getUserid() %>">	
 			    <table class="table table-bordered pretty" id="trackTable">
 				<thead>
 					<tr>

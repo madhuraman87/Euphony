@@ -1,6 +1,6 @@
 var userid;
 $(document).ready(function() {	
-	
+	userid = $("#userid").val();
 	var trackTable = $('#trackTable').dataTable({
 		destroy: true,
 		ajax : "/euphony/rest/track/all",
