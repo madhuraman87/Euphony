@@ -14,7 +14,7 @@
 <body>
 <%@include file="../jsp/Script.jsp" %>
  <form id="registerForm" class="form-horizontal">
-	<div class="result"><span id="result" style="color: red"></span></div>
+	<div class="result"><span id="result" style="color: white;font-size: 30px;"></span></div>
 	<div class="body"></div>
 	<div class="grad"><span id="result"></span></div>
 	<div class="header">

@@ -16,8 +16,7 @@ $(document).ready(function() {
 		if ($('#registerForm').valid()) {
 			var user = {};
 			user.userid = $("#userid").val();			
-			user.password = $("#password").val();
-			
+			user.password = $("#password").val();			
 			signup(user);
 		}
 	});
@@ -85,7 +84,7 @@ function userSignIn(data, textStatus, jqXHR){
 	console.log("Data: "+data.message);
 	$("#result").html(data.message);
 	if(data.user != null){
-		var url = "/euphony/jsp/Welcome.jsp";    
+		var url = "/euphony/jsp/Album.jsp";    
 		$(location).attr('href',url);	
 	}
 }
