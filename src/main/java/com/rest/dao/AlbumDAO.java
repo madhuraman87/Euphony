@@ -21,7 +21,7 @@ public class AlbumDAO {
 			+ tableName ;
 	private static final String GET_ALBUM_BY_ID = GET_ALL_ALBUM
 			+ " where albumid = ?";
-	private static final String File_Path = "C:/euphonyDataSet/track1/albumData1.txt";
+	private static final String File_Path = "C:/euphonyDataSet/track2/albumData2.txt";
 
 	public void insertAlbum() {
 		Connection conn = null;

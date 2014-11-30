@@ -18,7 +18,7 @@ public class ArtistDAO {
 	private static final String INSERT_ARTIST = "INSERT INTO " + tableName
 			+ " (artistid) values (?)";
 	private static final String GET_ALL_ARTIST = "select * From " + tableName;
-	private static final String File_Path = "C:/euphonyDataSet/track1/artistData1.txt";
+	private static final String File_Path = "C:/euphonyDataSet/track2/artistData2.txt";
 
 	public void insertArtist() {
 		Connection conn = null;

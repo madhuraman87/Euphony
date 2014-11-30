@@ -21,7 +21,7 @@ public class TrackDAO {
 			+ tableName;
 	private static final String GET_TRACK_BY_ID = GET_ALL_TRACK
 			+ " where trackid = ? ";
-	private static final String File_Path = "C:/euphonyDataSet/track1/track1.txt";
+	private static final String File_Path = "C:/euphonyDataSet/track2/trackData2.txt";
 
 	public void insertTrack() {
 		Connection conn = null;

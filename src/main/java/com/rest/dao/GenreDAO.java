@@ -18,7 +18,7 @@ public class GenreDAO {
 	private static final String INSERT_GENRE = "INSERT INTO " + tableName
 			+ " (genreid) values (?)";
 	private static final String GET_ALL_GENRE = "select * From " + tableName;
-	private static final String File_Path = "C:/euphonyDataSet/track1/genreData1.txt";
+	private static final String File_Path = "C:/euphonyDataSet/track2/genreData2.txt";
 
 	public void insertGenre() {
 		Connection conn = null;
