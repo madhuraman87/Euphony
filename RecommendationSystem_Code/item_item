@@ -1,0 +1,3 @@
+#Command to run using mahout and hadoop after compiling the mahout source and setting path in bashrc. This uses hadoop implementation of mahout algorithms. These paths given were of hdfs. The files were transfered on hdfs and then ran it. It took 833 minutes to run this program for 1GB of data of ratings and for all users. Single cluster hadoop was used. 
+
+Command : mahout recommenditembased -s SIMILARITY_LOGLIKELIHOOD -i /path/to/input/file -o /path/to/desired/output --numRecommendations 5
