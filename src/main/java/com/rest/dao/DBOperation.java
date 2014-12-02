@@ -12,7 +12,7 @@ public class DBOperation {
 	public static Connection getConnection() throws Exception {
 		   Connection conn = null;
 		   try {
-			 //String url = "jdbc:mysql://webstoredbinstance.crwkdsouysyo.us-east-1.rds.amazonaws.com:3306/"+DBNAME+"?user="+DB_USERNAME+"&password="+DB_PASSWORD;  
+			// String url = "jdbc:mysql://euphony.cucnzttohznf.us-west-1.rds.amazonaws.com:3306/"+DBNAME+"?user="+DB_USERNAME+"&password="+DB_PASSWORD;  
 		     String url = "jdbc:mysql://localhost:3306/"+DBNAME+"?user="+DB_USERNAME+"&password="+DB_PASSWORD;
 		     Class.forName("com.mysql.jdbc.Driver");
 		     conn = DriverManager.getConnection(url);

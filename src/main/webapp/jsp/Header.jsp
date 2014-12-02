@@ -15,6 +15,7 @@
 
 		<li><a href="/euphony/jsp/Track.jsp">Tracks</a></li>
 		<li><a href="/euphony/jsp/Album.jsp">Albums</a></li>
+		<li><a href="/euphony/jsp/ShoppingCart.jsp">Shopping Cart</a></li>
 		<li><a href="/euphony/jsp/UserProfile.jsp">User Profile</a></li>
 		<li><a href='#' style="left: 30%;">Welcome <%=user.getUserid()%> !</a></li>
 		<li><a href='/euphony/jsp/Login.jsp' style="left: 120%">Logout</a></li>

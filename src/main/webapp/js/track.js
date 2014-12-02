@@ -24,8 +24,19 @@ $(document).ready(function() {
 			mRender : function(data, type, row) {
 				return '<a href="#" class="btn btn-primary modbutton">Feedback</a>';
 			}
+		} ,{
+			"targets" : [ 5 ],
+			"visible" : true,
+			"searchable" : false,
+			bVisible : true,
+			sTitle : 'Action',
+			sWidth : '6%',
+			mRender : function(data, type, row) {
+				return '<a href="#" class="btn btn-primary addbutton">Add to Cart</a>';
+			}
 		} ],fnDrawCallback : function(oSettings) {
 			$('#trackTable tbody a.modbutton').click(addFeedback);
+			$('#trackTable tbody a.addbutton').click(addToCart);
 		},
 		fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 			var oTable = $("#trackTable").dataTable();
@@ -57,6 +68,19 @@ function addFeedback(){
 	
 }
 
+function addToCart(){
+	var nTr = $(this).parents('tr')[0];
+	var oTable = $("#trackTable").dataTable();
+	var aData = oTable.fnGetData(nTr);		
+	var id = aData.trackid;
+	var shoppingCart = {};
+	shoppingCart.userid = userid;
+	shoppingCart.trackid = id;
+	shoppingCart.albumid= aData.albumid;
+	insertItem(shoppingCart);
+	
+}
+
 function onSubmit(){	
 	var feedback = {};
 	feedback.userid = userid;
@@ -76,6 +100,18 @@ function onSubmit(){
 
 
 }
+
+
+function insertItem(shoppingcart){				
+    var uri='/euphony/rest/shoppingcart/add';
+    $.ajax({
+	    	type:'POST',	
+	    	contentType:'application/json',	
+	    	url:uri,	    	    	
+	    	data: JSON.stringify(shoppingcart),
+    	});
+}
+
 
 function insertFeedback(feedback){				
     var uri='/euphony/rest/feedback/add';

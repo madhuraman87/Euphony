@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rest.model.ShoppingCart;
 import com.rest.model.Track;
 import com.rest.model.TrackView;
 
@@ -113,6 +114,38 @@ public class TrackDAO {
 
 	}
 
+	public void addSong(Track track) {
+		
+		Connection conn = null;
+
+		try {
+			conn = DBOperation.getConnection();
+
+			PreparedStatement prepStmt = conn.prepareStatement(INSERT_TRACK);
+
+			prepStmt.setInt(1, track.getTrackid());
+			prepStmt.setString(2, track.getAlbumid());			
+			prepStmt.setString(3, track.getArtist());
+			prepStmt.setString(3, track.getGenre());	
+			prepStmt.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
+	
 	public Track getTrackById(Integer trackid) {
 		Track track = new Track();
 		Connection conn = null;

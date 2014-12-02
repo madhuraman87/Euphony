@@ -91,6 +91,7 @@ table.table th {
 						<th style="text-align: center;">Artist ID</th>					
 						<th style="text-align: center;">Genre ID</th>
 						<th style="text-align: center;"></th>
+						<th style="text-align: center;"></th>
 					</tr>
 				</thead>
 			</table>

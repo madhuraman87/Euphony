@@ -3,7 +3,7 @@ package com.rest.model;
 public class ShoppingCart {
 	private int userid;
 	private int trackid;
-	private String albumid;
+	private int albumid;
 	private String artistid;
 	private String genre;
 	public int getUserid() {
@@ -18,10 +18,10 @@ public class ShoppingCart {
 	public void setTrackid(int trackid) {
 		this.trackid = trackid;
 	}
-	public String getAlbumid() {
+	public int getAlbumid() {
 		return albumid;
 	}
-	public void setAlbumid(String albumid) {
+	public void setAlbumid(int albumid) {
 		this.albumid = albumid;
 	}
 	public String getArtistid() {
